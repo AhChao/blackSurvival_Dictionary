@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Black survival Recipe</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/csshake.min.css">
+    <style type="text/css">
+    h1 {
+        font-family: 'cwTeXFangSong';
+    }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>黑色倖存</h3>
+                <h3>Black Survival Recipe</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <img id="profilePicture" align="middle" src="./img/icon.png"></img>
+                <p>選擇類別</p>
+                <li class="active">
+                    <a href="#weaponSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">武器</a>
+                    <ul class="collapse list-unstyled" id="weaponSubmenu">
+                        <li><a id="bladeBtn" href="javascript:selectType('blade')">斬擊</a></li>
+                        <li><a id="stabBtn" href="javascript:selectType('stab')">穿刺</a></li>
+                        <li><a id="bluntBtn" href="javascript:selectType('blunt')">鈍器</a></li>
+                        <li><a id="thrownBtn" href="javascript:selectType('thrown')">投擲</a></li>
+                        <li><a id="gunBtn" href="javascript:selectType('gun')">槍</a></li>
+                        <li><a id="bowBtn" href="javascript:selectType('bow')">弓</a></li>
+                        <li><a id="handBtn" href="javascript:selectType('hand')">拳法</a></li>
+                        <li><a id="trapBtn" href="javascript:selectType('trap')">陷阱</a></li>
+                    </ul>
+                </li>
+                <li class="active">
+                    <a href="#armorSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">護甲</a>
+                    <ul class="collapse list-unstyled" id="armorSubmenu">
+                        <li><a id="headBtn" href="javascript:selectType('head')">頭部</a></li>
+                        <li><a id="clothesBtn" href="javascript:selectType('clothes')">衣服</a></li>
+                        <li><a id="armBtn" href="javascript:selectType('arm')">手臂</a></li>
+                        <li><a id="legBtn" href="javascript:selectType('leg')">腿部</a></li>
+                        <li><a id="accessoryBtn" href="javascript:selectType('accessory')">飾品</a></li>
+                    </ul>
+                </li>
+                <li class="active">
+                    <a href="#foodSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">食物</a>
+                    <ul class="collapse list-unstyled" id="foodSubmenu">
+                        <li><a id="healthBtn" href="javascript:selectType('health')">生命值</a></li>
+                        <li><a id="staminaBtn" href="javascript:selectType('stamina')">耐力</a></li>
+                    </ul>
+                </li>
+                <li class="active">
+                    <a href="#normalSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">正常</a>
+                    <ul class="collapse list-unstyled" id="normalSubmenu">
+                        <li><a id="enhanceBtn" href="javascript:selectType('enhance')">強化</a></li>
+                        <li><a id="specialBtn" href="javascript:selectType('special')">特殊</a></li>
+                        <li><a id="ingredientsBtn" href="javascript:selectType('ingredients')">材料</a></li><!--消耗品也放這裡-->
+                    </ul>
+                </li>
+                
+            </ul>
+
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="https://github.com/AhChao" class="download">GithubPage</a>
+                </li>
+                <li>
+                    <a href="https://blacksurvival.gamerch.com/" class="article">Black Survival Wiki(JP)</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- NavBar -->
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="javascript:stepSwitch(1)">Step1.裝備規劃</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript:stepSwitch(2)">Step2.合成顯示</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript:stepSwitch(3)">Step3.材料統計</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!--頁面內容-->
+            <div id="selectedItemDiv">
+                <h2>裝備規劃</h2>
+                <svg width="1550" height="200" id="selectedItemSVG">
+                    <rect width="1550" height="200" fill="none" stroke="black" stroke-width="5"/>
+                    <path d="M 25 100 L 50 125 L 50 75 Z" onclick="pageSwitch(-1)"/>
+                    <path d="M 1525 100 L 1500 125 L 1500 75 Z" onclick="pageSwitch(1)"/>                
+                </svg>
+            </div>
+
+            <div id="itemListDiv">
+                <h2 id="typeText">點擊左方清單選擇類別</h2>
+                <svg width="1550" height="450" id="showItemFieldSVG">
+                    <rect width="1550" height="450" fill="none" stroke="black" stroke-width="5"/>
+                    <path d="M 25 225 L 50 250 L 50 200 Z" onclick="pageSwitch(-1)"/>
+                    <path d="M 1525 225 L 1500 250 L 1500 200 Z" onclick="pageSwitch(1)"/>
+                    <text id="pageText" x="50%" y="90%" style="font-size:24px;">Page</text>
+                </svg>
+            </div>
+
+            <div id="itemRecipeDiv">
+                <h2>合成列</h2>
+                <svg width="1500" height="180">
+                    <rect width="1500" height="180" fill="none" stroke="black" stroke-width="5"/>
+                </svg>
+            </div>
+
+            <div id="totalNeedDiv">
+                <h2>總共所需材料如下</h2>
+                <svg width="1500" height="180">
+                    <rect width="1500" height="180" fill="none" stroke="black" stroke-width="5"/>
+                </svg>
+            </div>
+
+            <div id="mapDiv">
+                <h2>地圖顯示</h2>
+                <svg width="1500" height="350">
+                    <filter id="grayscale">
+                        <feColorMatrix type="saturate" values="0"/>
+                    </filter>
+                    <image href="./mapImg/map_lumiaIsland.png" width="40%"  filter="url(#grayscale)"/>
+                    <image id="l1" href="./mapImg/l1.png" x="2.35%" y="5.1%" width="8.7%"/>
+                    <image id="l2" href="./mapImg/l2.png" x="10%" y="0%" width="7%"/>
+                    <image id="l3" href="./mapImg/l3.png" x="16.5%" y="0%" width="7%"/>
+                    <image id="l4" href="./mapImg/l4.png" x="23.2%" y="11%" width="10%"/>
+                    <image id="l5" href="./mapImg/l5.png" x="32.5%" y="28.5%" width="7%"/>
+                </svg>
+            </div>
+
+            <div id="reverseListDiv">
+                <h2>地圖需撿材料</h2>
+            </div>
+        </div>
+    </div>
+
+    <!--<script src="lib/jquery-slim.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="lib/popper.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/d3.v3.min.js"></script>
+    <script src="src/main.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $(this).toggleClass('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
