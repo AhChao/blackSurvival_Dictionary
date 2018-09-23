@@ -13,8 +13,12 @@
 */
 
 var itemPage = 0;
+var selectedPage = 0;
 var nowType;
 var maxPage = 0;
+var maxSelectedPage = 0;
+var nowLanguage = "tw";
+var wishList = [];
 var itemNumber = 
 {
 	"health":[56,123],
@@ -70,61 +74,67 @@ function showOnField(typeText,page,field)
 	var picSizeY = 170*0.9;
 	var showNumbers=0;
 	var maxShow=0;
-	var startIndex = (itemNumber[typeText][0]+page*10);
-	if(field=="showItemFieldSVG")
+	var locX;
+	var locY;
+	var startIndex;
+	if(field=="showItemFieldSVG")//依選擇類別顯示在右邊
 	{
 		startX = 80;
 		startY = 40;
 		maxShow=10;
+		startIndex = (itemNumber[typeText][0]+page*10);
+		d3.select("#pageText").text((itemPage+1)+"/"+(maxPage+1));
+		if(maxPage==0) d3.select("#pageText").text("");
+		for(var i= (itemNumber[typeText][0]+page*10);i<=itemNumber[typeText][1]&&showNumbers<maxShow;i++)
+		{		
+			locX = startX + ((i-startIndex)%5)*(picSizeX+spacing);
+			locY = startY + Math.floor((i-startIndex)/5)*(picSizeY+spacing);
+			d3.select("#showItemFieldSVG").append("image").attr(
+			{
+				"x":locX,
+				"y":locY,
+				"width":picSizeX,
+				"height":picSizeY,
+				"href":"./thingsImg/"+i+".jpg",
+				"id":"item"+i,
+				"ondblclick":"selectItem(this.id)",
+			});
+			showNumbers++;
+		}
 	}
-	else if(field=="selectedItemSVG")
+	else if(field=="selectedItemSVG")//選擇道具顯示在願望清單
 	{
 		startX = 80;
 		startY = 25;
 		maxShow=5;
-	}
-	d3.select("#pageText").text((itemPage+1)+"/"+(maxPage+1));
-	if(maxPage==0) d3.select("#pageText").text("");
-	for(var i= (itemNumber[typeText][0]+page*10);i<=itemNumber[typeText][1]&&showNumbers<maxShow;i++)
-	{		
-		var locX = startX + ((i-startIndex)%5)*(picSizeX+spacing);
-		var locY = startY + Math.floor((i-startIndex)/5)*(picSizeY+spacing);
-		d3.select("#showItemFieldSVG").append("image").attr(
+
+		for(var i=page*5; i<wishList.length&&showNumbers<maxShow;i++)
 		{
-			"x":locX,
-			"y":locY,
-			"width":picSizeX,
-			"height":picSizeY,
-			"href":"./thingsImg/"+i+".jpg",
-			"id":"item"+i,
-			"ondblclick":"selectItem(this.id)",
-		});
-		showNumbers++;
-	}
+			locX = startX + (i%5)*(picSizeX+spacing);
+			locY = startY;
+			d3.select("#selectedItemSVG").append("image").attr(
+			{
+				"x":locX,
+				"y":locY,
+				"width":picSizeX,
+				"height":picSizeY,
+				"href":"./thingsImg/"+wishList[i]+".jpg",
+				"id":"selecteditem"+wishList[i],
+				"onclick":"seeTheRecipe(this.id)",
+				"ondblclick":"delectSelected(this.id)",
+			});
+			showNumbers++;
+		}		
+	}	
 }
 
 function selectItem(item)//選擇道具加入列表
 {
-	var startX = 80;
-	var startY = 25;
-	var spacing = 25;//圖片上下左右間隔
-	var picSizeX = 285*0.9;
-	var picSizeY = 170*0.9;
-	var selectedNumber = d3.select("#selectedItemSVG").node().childNodes.length-7;
-	var locX = startX + selectedNumber*(picSizeX+spacing);
-	var locY = startY //+ selectedNumber*(picSizeY+spacing);
 	var itemId = item.replace("item","");
-	d3.select("#selectedItemSVG").append("image").attr(
-	{
-		"x":locX,
-		"y":locY,
-		"width":picSizeX,
-		"height":picSizeY,
-		"href":"./thingsImg/"+itemId+".jpg",
-		"id":"selected"+item,
-		"onclick":"seeTheRecipe(this.id)",
-		"ondblclick":"delectSelected(this.id)",
-	});
+	wishList.push(itemId);
+	maxSelectedPage = Math.floor((wishList.length-1)/5);
+	selectedPage = maxSelectedPage;
+	showOnField(-1,selectedPage,"selectedItemSVG");
 }
 
 function seeTheRecipe(item)
@@ -198,6 +208,7 @@ function checkOnMap(item)
 {
 	var itemId = item.replace("recipe","");
 	var lighten = false;
+	var lightOneTime = false;
 	var itemNo;
 	d3.select("#mapSVG").selectAll("text").remove();
 	for(var i=1; i<=lumiaIsland.length; i++)
@@ -209,6 +220,7 @@ function checkOnMap(item)
 			if(lumiaIsland[i][j]==itemId)
 			{
 				lighten = true;
+				if(!lightOneTime) lightOneTime = true;
 				itemNo = j;
 			} 
 		}
@@ -226,32 +238,53 @@ function checkOnMap(item)
 			});
 		}
 	}
+	if(!lightOneTime)
+	{
+		if(recipe[itemId].length==1) itemId = recipe[itemId];
+		if(recipe[itemId].length==0) 
+		{
+			var textRandomAppear =
+			{
+				"tw":"出現在隨機區域",
+				"jp":"ランダム地域で出ます",
+				"us":"Appears at Random Area",
+			}
+			d3.select("#mapSVG").append("text").text(textRandomAppear[nowLanguage]).attr(
+			{
+				"x":"14%",
+				"y":"45%",
+				"style":"font-size:24px;paint-order: stroke;stroke: #FFFFFF;stroke-width: 5px;stroke-linejoin: miter;font-weight: 800;",
+				"fill":"purple",			    
+			});
+		}
+		else if(recipe[itemId].length==2)
+		{
+			var textNeedToMake =
+			{
+				"tw":"可以被合成",
+				"jp":"製造で作れます",
+				"us":"Can be crafted",
+			}
+			d3.select("#mapSVG").append("text").text(textNeedToMake[nowLanguage]).attr(
+			{
+				"x":"14%",
+				"y":"45%",
+				"style":"font-size:24px;paint-order: stroke;stroke: #FFFFFF;stroke-width: 5px;stroke-linejoin: miter;font-weight: 800;",
+				"fill":"purple",			    
+			});
+		}
+	}
 }
 
 function delectSelected(item)
 {
 	d3.select("#"+item).remove();
-	rearrangePics();
-}
-
-function rearrangePics()
-{
-	var imgs = d3.select("#selectedItemSVG").selectAll("image")[0];
-	var startX = 80;
-	var startY = 25;
-	var spacing = 25;//圖片上下左右間隔
-	var picSizeX = 285*0.9;
-	var picSizeY = 170*0.9;
-	for(var i in imgs)
-	{		
-		var idOfImg = imgs[i].id;
-		d3.select("#"+idOfImg).attr(
-		{
-			"x":startX+(i%5)*(picSizeX+spacing),
-			"y":startY,
-		});
-		if(idOfImg=="selectedItemSVG") continue;
-	}
+	var index = wishList.indexOf(item.replace("selecteditem",""));
+	if (index > -1) 
+	  wishList.splice(index, 1);
+	maxSelectedPage = Math.floor((wishList.length-1)/5);
+	if(selectedPage>maxSelectedPage) selectedPage = maxSelectedPage;
+	showOnField(-1,selectedPage,"selectedItemSVG");
 }
 
 function pageSwitch(value)
@@ -281,15 +314,15 @@ function selectedPageSwitch(value)
 		if(selectedPage>0)
 		{
 			selectedPage-=1;
-			showOnField(nowType,itemPage,"selectedItemSVG");
+			showOnField(-1,selectedPage,"selectedItemSVG");
 		}  
 	}
 	else if(value==1)
 	{
 		if(selectedPage<maxSelectedPage)
 		{
-			itemPage+=1;
-			showOnField(nowType,itemPage,"selectedItemSVG");
+			selectedPage+=1;
+			showOnField(-1,selectedPage,"selectedItemSVG");
 		} 
 	}	
 }
@@ -304,8 +337,12 @@ function stepSwitch(step)
 	var stepView=[["selectedItemDiv","itemListDiv"],
 				  ["selectedItemDiv","itemRecipeDiv","mapDiv"],
 				  ["selectedItemDiv","totalNeedDiv","mapDiv"],
-				  ["selectedItemDiv","mapRequestDiv","reverseListDiv"]];
+				  ["selectedItemDiv","mapDiv","reverseListDiv"]];
 	if(step==2) calculation();
+	if(step==3)
+	{
+		reverseList(calculation());
+	} 
 	for(var i in stepView)
 	{
 		for(var j in stepView[i])
@@ -354,18 +391,26 @@ function calculation()//計算結果
 		}
 	}
 
-	var startX = 80;
+	var startX = 40;
 	var startY = 25;
 	var spacing = 50;//圖片上下左右間隔
-	var picSizeX = 285*0.9;
-	var picSizeY = 170*0.9;
+	var picSizeX = 285*0.5;
+	var picSizeY = 170*0.5;
 	var locX;
 	var locY;
+	var lineRec = 0;
 	
 	for(var i in itemNumberList)
 	{
-		locX = startX + i*(picSizeX+spacing);
+		locX = startX + (i%8)*(picSizeX+spacing);
 		locY = startY;
+		if(Math.floor(i/8)>lineRec)
+		{
+			lineRec++;
+			d3.select("#totalNeedSVG").attr("height",(lineRec*1+1)*135);	
+			d3.select("#totalNeedSVGBG").attr("height",(lineRec*1+1)*135);
+			locY = lineRec*135;
+		}
 		d3.select("#totalNeedSVG").append("image").attr(
 		{
 			"x":locX,
@@ -383,5 +428,81 @@ function calculation()//計算結果
 			"style":"font-size:24px;paint-order: stroke;stroke: black;stroke-width: 5px;stroke-linejoin: miter;font-weight: 800;",
 			"fill":"white",
 		});
-	}	
+	}
+	return itemNumberList;	
+}
+
+function reverseList(rlist)
+{
+	var lighten;
+	var maxWidth = 5;
+	var nowWidth = 0;
+	var lineRec = 0;
+	d3.select("#reverseListSVG").selectAll("image").remove();
+	d3.select("#reverseListSVG").selectAll("text").remove();
+	var startX = 40;
+	var startY = 25;
+	var spacing = 50;//圖片上下左右間隔
+	var picSizeX = 285*0.4;
+	var picSizeY = 170*0.4;
+	var locX;
+	var locY;
+	var heightOfMap=
+	[0,130,146,170,151,194,185,191,234,152,162,208,257,158,206,260,237,132,233,179,90,177,263,450];
+	var scaleAmount = 0.6;
+	for(var i=1;i<lumiaIsland.length;i++)
+	{
+		lighten = false;
+		nowWidth = 0;
+		d3.select("#l"+i).attr("style","display:None;");
+		d3.select("#reverseListSVG").attr("height",lineRec*200);
+		for(var j=0;j<rlist.length;j++)
+		{
+			var index = lumiaIsland[i].indexOf(rlist[j][0]);
+			if (index > -1) 
+			{				
+				nowWidth++;
+				if(nowWidth>=maxWidth)
+				{
+					d3.select("#reverseListSVG").attr("width",nowWidth*300+50);
+				}
+				if(!lighten)
+				{
+					d3.select("#l"+i).attr("style",null);
+					d3.select("#reverseListSVG").append("image").attr(
+					{
+						"x":startX,
+						"y":startY*1+lineRec*1,
+						"width":200*scaleAmount, 
+						"href":"./mapImg/l"+i+".png",
+						"id":"tempMap"+i,
+					});
+					d3.select("#reverseListSVG").append("text").text(":").attr(
+					{
+						"x":startX+200*scaleAmount+10,
+						"y":startY*1+lineRec*1+heightOfMap[i]*0.4,
+						"style":"font-size:24px;paint-order: stroke;stroke: black;stroke-width: 5px;stroke-linejoin: miter;font-weight: 800;",
+						"fill":"white",
+					});
+					lighten = true;
+				}						
+				d3.select("#reverseListSVG").append("image").attr(
+				{
+					"x":startX+50+(picSizeX+50)*nowWidth,
+					"y":startY*1+lineRec*1+heightOfMap[i]*0.15,
+					"width":picSizeX,
+					"height":picSizeY,
+					"href":"./thingsImg/"+rlist[j][0]+".jpg",
+				});
+				d3.select("#reverseListSVG").append("text").text("x"+rlist[j][1]).attr(
+				{
+					"x":startX+50+(picSizeX+50)*nowWidth+picSizeX+10,
+					"y":startY*1+lineRec*1+heightOfMap[i]*0.4,
+					"style":"font-size:24px;paint-order: stroke;stroke: black;stroke-width: 5px;stroke-linejoin: miter;font-weight: 800;",
+					"fill":"white",
+				});
+			}
+		}
+		if(lighten) lineRec=lineRec*1+heightOfMap[i]*scaleAmount+20;
+	}
 }

@@ -74,7 +74,7 @@ var twStr=
 	"總共所需材料如下",
 	"掉落地點",
 	"地圖",
-	"各地點需撿材料",
+	"各地點應撿材料",
 ];
 var jpStr=
 [
@@ -156,6 +156,7 @@ var usStr=
 ];
 function languageSwitch(language)
 {
+	nowLanguage = language;
 	for(var i=0;i<textOrder.length;i++)
 	{
 		if(language=="jp") d3.select("#"+textOrder[i]).text(jpStr[i]);

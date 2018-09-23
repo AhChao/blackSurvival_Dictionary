@@ -120,6 +120,9 @@
                             <li class="nav-item">
                                 <a id="nav4" class="nav-link" href="javascript:stepSwitch(4)">地圖索引</a>
                             </li>
+                            <li class="nav-item">
+                                <a id="nav4" class="nav-link" href="javascript:stepSwitch(5)">套路編輯</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -155,19 +158,17 @@
             <div id="totalNeedDiv">
                 <h2 class="unselectable" id="textTotalMat">總共所需材料如下</h2>
                 <svg width="1600" height="200" id="totalNeedSVG">
-                    <rect width="1600" height="200" fill="none" stroke="black" stroke-width="5"/>
-                    <path d="M 25 100 L 50 125 L 50 75 Z" onclick="resultpageSwitch(-1)"/>
-                    <path d="M 1590 100 L 1565 125 L 1565 75 Z" onclick="resultpageSwitch(1)"/>
+                    <rect id="totalNeedSVGBG" width="1600" height="200" fill="none" stroke="black" stroke-width="5"/>
                 </svg>
             </div>
 
             <div id="mapDiv">
                 <h2 class="unselectable" id="textMapShow">掉落地點</h2>
                 <svg width="1500" height="350" id="mapSVG">
-                    <filter id="grayscale">
+                    <filter id="ggrayscale">
                         <feColorMatrix type="saturate" values="0"/>
                     </filter>
-                    <image href="./mapImg/map_lumiaIsland.png" width="40%"  filter="url(#grayscale)"/>
+                    <image href="./mapImg/map_lumiaIsland.png" width="40%"  filter="url(#ggrayscale)"/>
                     <image id="l1" href="./mapImg/l1.png" x="2.35%" y="5.1%" width="8.7%"/>
                     <image id="l2" href="./mapImg/l2.png" x="10%" y="0%" width="7%"/>
                     <image id="l3" href="./mapImg/l3.png" x="16.5%" y="0%" width="7%"/>
@@ -181,7 +182,7 @@
                     <image id="l11" href="./mapImg/l11.png" x="7.5%" y="35%" width="6.5%"/>
                     <image id="l12" href="./mapImg/l12.png" x="13.25%" y="44.5%" width="5.75%"/>
                     <image id="l13" href="./mapImg/l13.png" x="16.75%" y="55%" width="7.5%"/>
-                    <image id="l14" href="./mapImg/l14.png" x="22.25%" y="45%" width="7%"/>
+                    <image id="l14" href="./mapImg/l14.png" x="22.25%" y="42%" width="7%"/>
                     <image id="l15" href="./mapImg/l15.png" x="27.75%" y="53%" width="6.25%"/>
                     <image id="l16" href="./mapImg/l16.png" x="33%" y="57%" width="7%"/>
                     <image id="l17" href="./mapImg/l17.png" x="0%" y="50%" width="7.5%"/>
@@ -193,9 +194,9 @@
                 </svg>
             </div>
 
-            <div id="mapRequestDiv">
+            <div id="mapRequestDiv" style="display: none;">
                 <h2 class="unselectable" id="textMap">地圖</h2>
-                <svg width="1500" height="350" id="mapSVG">
+                <svg width="1500" height="350" id="rmapSVG">
                     <filter id="grayscale">
                         <feColorMatrix type="saturate" values="0"/>
                     </filter>
@@ -213,7 +214,7 @@
                     <image id="rl11" href="./mapImg/l11.png" x="7.5%" y="35%" width="6.5%"/>
                     <image id="rl12" href="./mapImg/l12.png" x="13.25%" y="44.5%" width="5.75%"/>
                     <image id="rl13" href="./mapImg/l13.png" x="16.75%" y="55%" width="7.5%"/>
-                    <image id="rl14" href="./mapImg/l14.png" x="22.25%" y="45%" width="7%"/>
+                    <image id="rl14" href="./mapImg/l14.png" x="22.25%" y="42%" width="7%"/>
                     <image id="rl15" href="./mapImg/l15.png" x="27.75%" y="53%" width="6.25%"/>
                     <image id="rl16" href="./mapImg/l16.png" x="33%" y="57%" width="7%"/>
                     <image id="rl17" href="./mapImg/l17.png" x="0%" y="50%" width="7.5%"/>
@@ -226,7 +227,9 @@
             </div>
 
             <div id="reverseListDiv">
-                <h2 class="unselectable" id="textEachLoc">各地點需撿材料</h2>
+                <h2 class="unselectable" id="textEachLoc">各地點應撿材料</h2>
+                <svg id="reverseListSVG" width="1550" height="200">
+                </svg>
             </div>
         </div>
     </div>
