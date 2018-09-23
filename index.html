@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Black survival Recipe</title>
+    <title>Black survival</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -25,15 +25,15 @@
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>黑色倖存</h3>
-                <h3>Black Survival Recipe</h3>
+                <h3 id="textGameName">黑色倖存</h3>
+                <h3>Black Survival</h3>
             </div>
 
             <ul class="list-unstyled components">
                 <img id="profilePicture" align="middle" src="./img/icon.png"></img>
-                <p>選擇類別</p>
+                <p id="textSelectType">選擇類別</p>
                 <li class="active">
-                    <a href="#weaponSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">武器</a>
+                    <a href="#weaponSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="weaponBtn">武器</a>
                     <ul class="collapse list-unstyled" id="weaponSubmenu">
                         <li><a id="bladeBtn" href="javascript:selectType('blade')">斬擊</a></li>
                         <li><a id="stabBtn" href="javascript:selectType('stab')">穿刺</a></li>
@@ -46,7 +46,7 @@
                     </ul>
                 </li>
                 <li class="active">
-                    <a href="#armorSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">護甲</a>
+                    <a href="#armorSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="armorBtn">護甲</a>
                     <ul class="collapse list-unstyled" id="armorSubmenu">
                         <li><a id="headBtn" href="javascript:selectType('head')">頭部</a></li>
                         <li><a id="clothesBtn" href="javascript:selectType('clothes')">衣服</a></li>
@@ -56,14 +56,14 @@
                     </ul>
                 </li>
                 <li class="active">
-                    <a href="#foodSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">食物</a>
+                    <a href="#foodSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="foodBtn">食物</a>
                     <ul class="collapse list-unstyled" id="foodSubmenu">
                         <li><a id="healthBtn" href="javascript:selectType('health')">生命值</a></li>
                         <li><a id="staminaBtn" href="javascript:selectType('stamina')">耐力</a></li>
                     </ul>
                 </li>
                 <li class="active">
-                    <a href="#normalSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">正常</a>
+                    <a href="#normalSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="normalBtn">正常</a>
                     <ul class="collapse list-unstyled" id="normalSubmenu">
                         <li><a id="enhanceBtn" href="javascript:selectType('enhance')">強化</a></li>
                         <li><a id="specialBtn" href="javascript:selectType('special')">特殊</a></li>
@@ -73,13 +73,22 @@
                 
             </ul>
 
+            <div align="center">
+                <img src="./img/twIcon.png" width="25%" onclick="languageSwitch('tw')"/>
+                <img src="./img/jpIcon.png" width="25%" onclick="languageSwitch('jp')"/>
+                <img src="./img/usIcon.png" width="25%" onclick="languageSwitch('us')"/>
+            </div>
+
             <ul class="list-unstyled CTAs">
                 <li>
-                    <a href="https://github.com/AhChao" class="download">GithubPage</a>
+                    <a href="javascript:popUpModal()" class="download" id="howToUseBtn">使用說明</a>
+                </li>
+                <li>
+                    <a href="http://store.steampowered.com/app/690510/Black_Survival/ " class="download">Black Survival (Steam))</a>
                 </li>
                 <li>
                     <a href="https://blacksurvival.gamerch.com/" class="article">Black Survival Wiki(JP)</a>
-                </li>
+                </li>                
             </ul>
         </nav>
 
@@ -100,13 +109,16 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="javascript:stepSwitch(1)">Step1.裝備規劃</a>
+                                <a id="nav1" class="nav-link" href="javascript:stepSwitch(1)">裝備規劃</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="javascript:stepSwitch(2)">Step2.合成顯示</a>
+                                <a id="nav2" class="nav-link" href="javascript:stepSwitch(2)">合成顯示</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="javascript:stepSwitch(3)">Step3.材料統計</a>
+                                <a id="nav3" class="nav-link" href="javascript:stepSwitch(3)">材料統計</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="nav4" class="nav-link" href="javascript:stepSwitch(4)">地圖索引</a>
                             </li>
                         </ul>
                     </div>
@@ -115,41 +127,43 @@
 
             <!--頁面內容-->
             <div id="selectedItemDiv">
-                <h2>裝備規劃</h2>
+                <h2 class="unselectable" id="wishList">裝備規劃</h2>
                 <svg width="1550" height="200" id="selectedItemSVG">
                     <rect width="1550" height="200" fill="none" stroke="black" stroke-width="5"/>
-                    <path d="M 25 100 L 50 125 L 50 75 Z" onclick="pageSwitch(-1)"/>
-                    <path d="M 1525 100 L 1500 125 L 1500 75 Z" onclick="pageSwitch(1)"/>                
+                    <path d="M 25 100 L 50 125 L 50 75 Z" onclick="selectedPageSwitch(-1)"/>
+                    <path d="M 1525 100 L 1500 125 L 1500 75 Z" onclick="selectedPageSwitch(1)"/>                
                 </svg>
             </div>
 
             <div id="itemListDiv">
-                <h2 id="typeText">點擊左方清單選擇類別</h2>
+                <h2 class="unselectable" id="typeText">點擊左方清單選擇類別</h2>
                 <svg width="1550" height="450" id="showItemFieldSVG">
                     <rect width="1550" height="450" fill="none" stroke="black" stroke-width="5"/>
                     <path d="M 25 225 L 50 250 L 50 200 Z" onclick="pageSwitch(-1)"/>
                     <path d="M 1525 225 L 1500 250 L 1500 200 Z" onclick="pageSwitch(1)"/>
-                    <text id="pageText" x="50%" y="90%" style="font-size:24px;">Page</text>
+                    <text class="unselectable" id="pageText" x="50%" y="90%" style="font-size:24px;">Page</text>
                 </svg>
             </div>
 
             <div id="itemRecipeDiv">
-                <h2>合成列</h2>
-                <svg width="1500" height="180">
+                <h2 class="unselectable" id="textRecipeLine">合成列</h2>
+                <svg width="1500" height="180" id="itemRecipeSVG">
                     <rect width="1500" height="180" fill="none" stroke="black" stroke-width="5"/>
                 </svg>
             </div>
 
             <div id="totalNeedDiv">
-                <h2>總共所需材料如下</h2>
-                <svg width="1500" height="180">
-                    <rect width="1500" height="180" fill="none" stroke="black" stroke-width="5"/>
+                <h2 class="unselectable" id="textTotalMat">總共所需材料如下</h2>
+                <svg width="1600" height="200" id="totalNeedSVG">
+                    <rect width="1600" height="200" fill="none" stroke="black" stroke-width="5"/>
+                    <path d="M 25 100 L 50 125 L 50 75 Z" onclick="resultpageSwitch(-1)"/>
+                    <path d="M 1590 100 L 1565 125 L 1565 75 Z" onclick="resultpageSwitch(1)"/>
                 </svg>
             </div>
 
             <div id="mapDiv">
-                <h2>地圖顯示</h2>
-                <svg width="1500" height="350">
+                <h2 class="unselectable" id="textMapShow">掉落地點</h2>
+                <svg width="1500" height="350" id="mapSVG">
                     <filter id="grayscale">
                         <feColorMatrix type="saturate" values="0"/>
                     </filter>
@@ -159,13 +173,82 @@
                     <image id="l3" href="./mapImg/l3.png" x="16.5%" y="0%" width="7%"/>
                     <image id="l4" href="./mapImg/l4.png" x="23.2%" y="11%" width="10%"/>
                     <image id="l5" href="./mapImg/l5.png" x="32.5%" y="28.5%" width="7%"/>
+                    <image id="l6" href="./mapImg/l6.png" x="2%" y="27.5%" width="7%"/>
+                    <image id="l7" href="./mapImg/l7.png" x="7%" y="17%" width="6%"/>
+                    <image id="l8" href="./mapImg/l8.png" x="12.75%" y="17%" width="5.5%"/>
+                    <image id="l9" href="./mapImg/l9.png" x="18%" y="21%" width="8%"/>
+                    <image id="l10" href="./mapImg/l10.png" x="28%" y="40%" width="8.5%"/>
+                    <image id="l11" href="./mapImg/l11.png" x="7.5%" y="35%" width="6.5%"/>
+                    <image id="l12" href="./mapImg/l12.png" x="13.25%" y="44.5%" width="5.75%"/>
+                    <image id="l13" href="./mapImg/l13.png" x="16.75%" y="55%" width="7.5%"/>
+                    <image id="l14" href="./mapImg/l14.png" x="22.25%" y="45%" width="7%"/>
+                    <image id="l15" href="./mapImg/l15.png" x="27.75%" y="53%" width="6.25%"/>
+                    <image id="l16" href="./mapImg/l16.png" x="33%" y="57%" width="7%"/>
+                    <image id="l17" href="./mapImg/l17.png" x="0%" y="50%" width="7.5%"/>
+                    <image id="l18" href="./mapImg/l18.png" x="2.5%" y="55%" width="7%"/>
+                    <image id="l19" href="./mapImg/l19.png" x="8.15%" y="63%" width="6%"/>
+                    <image id="l20" href="./mapImg/l20.png" x="14%" y="73.5%" width="9.5%"/>
+                    <image id="l21" href="./mapImg/l21.png" x="23.7%" y="64%" width="6.15%"/>
+                    <image id="l22" href="./mapImg/l22.png" x="16.75%" y="35%" width="5.5%"/>
+                </svg>
+            </div>
+
+            <div id="mapRequestDiv">
+                <h2 class="unselectable" id="textMap">地圖</h2>
+                <svg width="1500" height="350" id="mapSVG">
+                    <filter id="grayscale">
+                        <feColorMatrix type="saturate" values="0"/>
+                    </filter>
+                    <image href="./mapImg/map_lumiaIsland.png" width="40%"  filter="url(#grayscale)"/>
+                    <image id="rl1" href="./mapImg/l1.png" x="2.35%" y="5.1%" width="8.7%"/>
+                    <image id="rl2" href="./mapImg/l2.png" x="10%" y="0%" width="7%"/>
+                    <image id="rl3" href="./mapImg/l3.png" x="16.5%" y="0%" width="7%"/>
+                    <image id="rl4" href="./mapImg/l4.png" x="23.2%" y="11%" width="10%"/>
+                    <image id="rl5" href="./mapImg/l5.png" x="32.5%" y="28.5%" width="7%"/>
+                    <image id="rl6" href="./mapImg/l6.png" x="2%" y="27.5%" width="7%"/>
+                    <image id="rl7" href="./mapImg/l7.png" x="7%" y="17%" width="6%"/>
+                    <image id="rl8" href="./mapImg/l8.png" x="12.75%" y="17%" width="5.5%"/>
+                    <image id="rl9" href="./mapImg/l9.png" x="18%" y="21%" width="8%"/>
+                    <image id="rl10" href="./mapImg/l10.png" x="28%" y="40%" width="8.5%"/>
+                    <image id="rl11" href="./mapImg/l11.png" x="7.5%" y="35%" width="6.5%"/>
+                    <image id="rl12" href="./mapImg/l12.png" x="13.25%" y="44.5%" width="5.75%"/>
+                    <image id="rl13" href="./mapImg/l13.png" x="16.75%" y="55%" width="7.5%"/>
+                    <image id="rl14" href="./mapImg/l14.png" x="22.25%" y="45%" width="7%"/>
+                    <image id="rl15" href="./mapImg/l15.png" x="27.75%" y="53%" width="6.25%"/>
+                    <image id="rl16" href="./mapImg/l16.png" x="33%" y="57%" width="7%"/>
+                    <image id="rl17" href="./mapImg/l17.png" x="0%" y="50%" width="7.5%"/>
+                    <image id="rl18" href="./mapImg/l18.png" x="2.5%" y="55%" width="7%"/>
+                    <image id="rl19" href="./mapImg/l19.png" x="8.15%" y="63%" width="6%"/>
+                    <image id="rl20" href="./mapImg/l20.png" x="14%" y="73.5%" width="9.5%"/>
+                    <image id="rl21" href="./mapImg/l21.png" x="23.7%" y="64%" width="6.15%"/>
+                    <image id="rl22" href="./mapImg/l22.png" x="16.75%" y="35%" width="5.5%"/>
                 </svg>
             </div>
 
             <div id="reverseListDiv">
-                <h2>地圖需撿材料</h2>
+                <h2 class="unselectable" id="textEachLoc">各地點需撿材料</h2>
             </div>
         </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close" align="right">&times;</span>
+        <p id="explainText">
+            <!--<h2>黑色倖存套路規劃器</h2>
+            <h4>
+            【1】功能位於右上角切換，依序為裝備規劃、合成顯示、材料統計、地圖索引<br>
+            【2】在左邊側頁選擇裝備類別，雙擊欲加入規劃的裝備<br>
+            【3】裝備規劃列單擊為切到合成顯示頁，雙擊為移除<br>
+            【4】合成顯示頁單擊合成列可以觀看合成配方與出現地點、數量，雙擊為觀看該物品配方<br>
+            【5】材料統計頁會列出目前所有位於裝備規劃列所需的材料與數量<br>
+            【6】地圖索引頁點選單一地點，可以看到目前規劃中裝備應於該地點撿取的物品與數量<br>
+            </h4>-->
+        </p>
+      </div>
     </div>
 
     <!--<script src="lib/jquery-slim.min.js"></script>-->
@@ -173,7 +256,10 @@
     <script src="lib/popper.min.js"></script>
     <script src="lib/bootstrap.min.js"></script>
     <script src="lib/d3.v3.min.js"></script>
-    <script src="src/main.js"></script>
+    <script src="src/recipe.js"></script>
+    <script src="src/lumiaIsland.js"></script>
+    <script src="src/language.js"></script>
+    <script src="src/main.js"></script>    
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -182,6 +268,31 @@
                 $(this).toggleClass('active');
             });
         });
+    </script>
+    <script type="text/javascript">
+        window.onkeyup = function(e) {
+           var key = e.keyCode ? e.keyCode : e.which;
+           if (key == 49) stepSwitch(1);
+           else if (key == 50) stepSwitch(2);
+           else if (key == 51) stepSwitch(3);
+           else if (key == 52) stepSwitch(4);
+        }
+    </script>
+
+    <script type="text/javascript">
+        var modal = document.getElementById('myModal');
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     </script>
 </body>
 
