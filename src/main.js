@@ -45,9 +45,20 @@ var itemNumber =
 function init()
 {
 	stepSwitch(1);
-	languageSwitch("tw");
+	urlLoading();
 }
 init();
+
+function urlLoading()
+{
+	var urlData = location.href;
+	urlData = urlData.split("?language=");
+	urlData = urlData[1];
+
+	if( urlData == "tw") languageSwitch("tw");
+	else if( urlData == "jp") languageSwitch("jp");
+	else if( urlData == "us")languageSwitch("us");
+}
 
 function popUpModal(modalName,mapSelected)
 {
@@ -399,6 +410,7 @@ function stepSwitch(step)
 	{
 		reverseList(calculation());
 	} 
+	if(step==4) goalTRFill();
 	for(var i in stepView)
 	{
 		for(var j in stepView[i])
@@ -424,7 +436,7 @@ function calculation()//計算結果
 	var alreadyIn = false;
 	for(var i=0; i<totalItems.length;i++)
 	{
-		if(typeof recipe[totalItems[i]] == "undefined") console.log(totalItems[i],recipe[totalItems[i]]);
+		if(typeof recipe[totalItems[i]] == "undefined") console.log(i,totalItems[i],recipe[totalItems[i]]);
 		if(recipe[totalItems[i]].length==0)
 		{
 			alreadyIn = false;

@@ -5,7 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126290546-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
+      gtag('config', 'UA-126290546-1');
+    </script>
     <title>Black survival</title>
 
     <!-- Bootstrap CSS CDN -->
@@ -203,6 +211,9 @@
             <div id="mapRequestDiv">
                 <button id="charBtn" style="border-radius: 5px; font-size: 24px;" onclick="showCharModal()">選擇角色</button>
                 <button id="saveBtn" style="border-radius: 5px; font-size: 24px;" onclick="saveRoute()">保存圖片</button>
+                <input id="goalLineIn" type="checkbox" checked="true" onchange="goalTRCheck(this.checked)">列入目標</input>
+                <input id="useSingleColorCheck" type="checkbox">使用單色背景</input>
+                <input id="useSingleColorBG" type="color"></input>
                 <h2 class="unselectable" id="textMap">請點選地圖</h2>
                 <svg width="1500" height="350" id="rmapSVG">
                     <filter id="grayscale">
@@ -234,18 +245,13 @@
                 </svg>
             </div>
             <div id="plannerDiv">
-                <!--<font style="font-size:40px;font-weight: 800;color: black;padding-top: 15px;\
-            text-shadow:\
-            -2px -2px 0 #FFF,\
-            2px -2px 0 #FFF,\
-            -2px 2px 0 #FFF,\
-            2px 2px 0 #FFF;">-->
-                <table id="plannerTable">
+                <table id="plannerTable" >
                     <tr><td id="saveTitle" colspan="2" align="center"></td></tr>
                     <tr>
                         <td id="tableCharLoc"></td>
                         <td>                            
                             <table id="contentTable">
+                                <tr id="goalTR" style="border: 5px solid #880000;"></tr>
                                 <!--example:<tr><td>地點</td><td>撿取物品</td></tr>-->
                             </table>
                         </td>

@@ -1,9 +1,20 @@
 function saveRoute()
 {
 	var routeName = prompt("Please enter this route's name", "Black Survival Route");
-	d3.select("#plannerDiv").attr({
-		"style":"min-width:1400px;display: inline-block;background-image:url('./img/startBG.png');background-size:auto;background-repeat:no-repeat;",
-	});
+	console.log($('#useSingleColorCheck').is(":checked"));
+	if($('#useSingleColorCheck').is(":checked")==true)
+	{
+		console.log($('#useSingleColorBG').val());
+		d3.select("#plannerDiv").attr({
+			"style":"min-width:1400px;display: inline-block;background:"+$('#useSingleColorBG').val()+";background-size:100%;",
+		});
+	}
+	else
+	{
+		d3.select("#plannerDiv").attr({
+			"style":"min-width:1400px;display: inline-block;background-image:url('./img/startBG.png');background-size:100%;",//background-repeat:no-repeat;",
+		});
+	}
 	html2canvas(document.querySelector("#plannerDiv")).then(canvas => {
     var canvas = document.getElementById("popupModalContent").appendChild(canvas);
     var ctx = canvas.getContext("2d");
@@ -16,6 +27,35 @@ function saveRoute()
     d3.select("#plannerDiv").attr("style",null);
 	d3.select("#saveTitle").text("");});  
 	popUpModal("savePicModal");
+}
+
+function goalTRCheck(value)
+{
+	if(value) goalTRFill();
+	else d3.select("#goalTR").selectAll("td").remove();
+}
+
+function goalTRFill()
+{
+	d3.select("#goalTR").selectAll("td").remove();
+	if(wishList.length==0)
+	{
+		d3.select("#goalTR").attr("style","display:none;");
+		return;
+	} 
+	else d3.select("#goalTR").attr("style","border: 5px solid #880000;");
+	for(var i=0;i<wishList.length;i++)
+	{
+		d3.select("#goalTR").append("td").attr(
+							{
+								"style":"width:100px;",
+							})
+							.append("img").attr(
+							{
+								"style":"width:100%;",
+								"src":"./thingsImg/"+wishList[i]+".jpg",												
+							});
+	}	
 }
 
 function showCharModal()
