@@ -36,6 +36,8 @@ var textOrder=
 	"textMapShow",
 	"textMap",
 	"textEachLoc",
+	"charBtn",
+	"saveBtn",
 ];
 var twStr=
 [
@@ -73,13 +75,15 @@ var twStr=
 	"合成列",
 	"總共所需材料如下",
 	"掉落地點",
-	"地圖",
+	"請點選地圖",
 	"各地點應撿材料",
+	"選擇角色",
+	"保存圖片",
 ];
 var jpStr=
 [
 	"ブラサバ",
-	"種類別の選択",
+	"種類別",
 	"武器",
 	"斬り",
 	"突き",
@@ -112,8 +116,10 @@ var jpStr=
 	"製造方法",
 	"材料統計",
 	"どこが見つかるか",
-	"マップ",
+	"地域選択",
 	"ドロップ",
+	"実験体を選ぶ",
+	"画像を保存する",
 ];
 var usStr=
 [
@@ -151,8 +157,10 @@ var usStr=
 	"Recipe",
 	"Total required",
 	"Appears at",
-	"Map",
+	"Chose the Area",
 	"What you need in...",
+	"Chose the character",
+	"Save the picture",
 ];
 function languageSwitch(language)
 {

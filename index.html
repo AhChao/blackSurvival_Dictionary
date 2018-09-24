@@ -21,7 +21,7 @@
 
 <body>
 
-    <div class="wrapper">
+    <div class="wrapper" style="overflow: hidden;">
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
@@ -30,7 +30,7 @@
             </div>
 
             <ul class="list-unstyled components">
-                <img id="profilePicture" align="middle" src="./img/icon.png"></img>
+                <img id="profilePicture" align="middle" src="./img/icon.png"/>
                 <p id="textSelectType">選擇類別</p>
                 <li class="active">
                     <a href="#weaponSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="weaponBtn">武器</a>
@@ -81,7 +81,7 @@
 
             <ul class="list-unstyled CTAs">
                 <li>
-                    <a href="javascript:popUpModal()" class="download" id="howToUseBtn">使用說明</a>
+                    <a href="javascript:popUpModal('informModal')" class="download" id="howToUseBtn">使用說明</a>
                 </li>
                 <li>
                     <a href="http://store.steampowered.com/app/690510/Black_Survival/ " class="download">Black Survival (Steam))</a>
@@ -121,7 +121,7 @@
                                 <a id="nav4" class="nav-link" href="javascript:stepSwitch(4)">地圖索引</a>
                             </li>
                             <li class="nav-item">
-                                <a id="nav4" class="nav-link" href="javascript:stepSwitch(5)">套路編輯</a>
+                                <a id="nav5" class="nav-link" href="javascript:stepSwitch(5)">套路編輯</a>
                             </li>
                         </ul>
                     </div>
@@ -132,18 +132,18 @@
             <div id="selectedItemDiv">
                 <h2 class="unselectable" id="wishList">裝備規劃</h2>
                 <svg width="1550" height="200" id="selectedItemSVG">
-                    <rect width="1550" height="200" fill="none" stroke="black" stroke-width="5"/>
-                    <path d="M 25 100 L 50 125 L 50 75 Z" onclick="selectedPageSwitch(-1)"/>
-                    <path d="M 1525 100 L 1500 125 L 1500 75 Z" onclick="selectedPageSwitch(1)"/>                
+                    <rect width="1550" height="200" fill="none" stroke="black" stroke-width="5"></rect>
+                    <path d="M 25 100 L 50 125 L 50 75 Z" onclick="selectedPageSwitch(-1)"></path>
+                    <path d="M 1525 100 L 1500 125 L 1500 75 Z" onclick="selectedPageSwitch(1)"></path>
                 </svg>
             </div>
 
             <div id="itemListDiv">
                 <h2 class="unselectable" id="typeText">點擊左方清單選擇類別</h2>
                 <svg width="1550" height="450" id="showItemFieldSVG">
-                    <rect width="1550" height="450" fill="none" stroke="black" stroke-width="5"/>
-                    <path d="M 25 225 L 50 250 L 50 200 Z" onclick="pageSwitch(-1)"/>
-                    <path d="M 1525 225 L 1500 250 L 1500 200 Z" onclick="pageSwitch(1)"/>
+                    <rect width="1550" height="450" fill="none" stroke="black" stroke-width="5"></rect>
+                    <path d="M 25 225 L 50 250 L 50 200 Z" onclick="pageSwitch(-1)"></path>
+                    <path d="M 1525 225 L 1500 250 L 1500 200 Z" onclick="pageSwitch(1)"></path>
                     <text class="unselectable" id="pageText" x="50%" y="90%" style="font-size:24px;">Page</text>
                 </svg>
             </div>
@@ -151,14 +151,14 @@
             <div id="itemRecipeDiv">
                 <h2 class="unselectable" id="textRecipeLine">合成列</h2>
                 <svg width="1500" height="180" id="itemRecipeSVG">
-                    <rect width="1500" height="180" fill="none" stroke="black" stroke-width="5"/>
+                    <rect width="1500" height="180" fill="none" stroke="black" stroke-width="5"></rect>
                 </svg>
             </div>
 
             <div id="totalNeedDiv">
                 <h2 class="unselectable" id="textTotalMat">總共所需材料如下</h2>
                 <svg width="1600" height="200" id="totalNeedSVG">
-                    <rect id="totalNeedSVGBG" width="1600" height="200" fill="none" stroke="black" stroke-width="5"/>
+                    <rect id="totalNeedSVGBG" width="1600" height="200" fill="none" stroke="black" stroke-width="5"></rect>
                 </svg>
             </div>
 
@@ -166,7 +166,7 @@
                 <h2 class="unselectable" id="textMapShow">掉落地點</h2>
                 <svg width="1500" height="350" id="mapSVG">
                     <filter id="ggrayscale">
-                        <feColorMatrix type="saturate" values="0"/>
+                        <feColorMatrix type="saturate" values="0"></feColorMatrix>
                     </filter>
                     <image href="./mapImg/map_lumiaIsland.png" width="40%"  filter="url(#ggrayscale)"/>
                     <image id="l1" href="./mapImg/l1.png" x="2.35%" y="5.1%" width="8.7%"/>
@@ -194,51 +194,71 @@
                 </svg>
             </div>
 
-            <div id="mapRequestDiv" style="display: none;">
-                <h2 class="unselectable" id="textMap">地圖</h2>
-                <svg width="1500" height="350" id="rmapSVG">
-                    <filter id="grayscale">
-                        <feColorMatrix type="saturate" values="0"/>
-                    </filter>
-                    <image href="./mapImg/map_lumiaIsland.png" width="40%"  filter="url(#grayscale)"/>
-                    <image id="rl1" href="./mapImg/l1.png" x="2.35%" y="5.1%" width="8.7%"/>
-                    <image id="rl2" href="./mapImg/l2.png" x="10%" y="0%" width="7%"/>
-                    <image id="rl3" href="./mapImg/l3.png" x="16.5%" y="0%" width="7%"/>
-                    <image id="rl4" href="./mapImg/l4.png" x="23.2%" y="11%" width="10%"/>
-                    <image id="rl5" href="./mapImg/l5.png" x="32.5%" y="28.5%" width="7%"/>
-                    <image id="rl6" href="./mapImg/l6.png" x="2%" y="27.5%" width="7%"/>
-                    <image id="rl7" href="./mapImg/l7.png" x="7%" y="17%" width="6%"/>
-                    <image id="rl8" href="./mapImg/l8.png" x="12.75%" y="17%" width="5.5%"/>
-                    <image id="rl9" href="./mapImg/l9.png" x="18%" y="21%" width="8%"/>
-                    <image id="rl10" href="./mapImg/l10.png" x="28%" y="40%" width="8.5%"/>
-                    <image id="rl11" href="./mapImg/l11.png" x="7.5%" y="35%" width="6.5%"/>
-                    <image id="rl12" href="./mapImg/l12.png" x="13.25%" y="44.5%" width="5.75%"/>
-                    <image id="rl13" href="./mapImg/l13.png" x="16.75%" y="55%" width="7.5%"/>
-                    <image id="rl14" href="./mapImg/l14.png" x="22.25%" y="42%" width="7%"/>
-                    <image id="rl15" href="./mapImg/l15.png" x="27.75%" y="53%" width="6.25%"/>
-                    <image id="rl16" href="./mapImg/l16.png" x="33%" y="57%" width="7%"/>
-                    <image id="rl17" href="./mapImg/l17.png" x="0%" y="50%" width="7.5%"/>
-                    <image id="rl18" href="./mapImg/l18.png" x="2.5%" y="55%" width="7%"/>
-                    <image id="rl19" href="./mapImg/l19.png" x="8.15%" y="63%" width="6%"/>
-                    <image id="rl20" href="./mapImg/l20.png" x="14%" y="73.5%" width="9.5%"/>
-                    <image id="rl21" href="./mapImg/l21.png" x="23.7%" y="64%" width="6.15%"/>
-                    <image id="rl22" href="./mapImg/l22.png" x="16.75%" y="35%" width="5.5%"/>
-                </svg>
-            </div>
-
             <div id="reverseListDiv">
                 <h2 class="unselectable" id="textEachLoc">各地點應撿材料</h2>
                 <svg id="reverseListSVG" width="1550" height="200">
                 </svg>
             </div>
+
+            <div id="mapRequestDiv">
+                <button id="charBtn" style="border-radius: 5px; font-size: 24px;" onclick="showCharModal()">選擇角色</button>
+                <button id="saveBtn" style="border-radius: 5px; font-size: 24px;" onclick="saveRoute()">保存圖片</button>
+                <h2 class="unselectable" id="textMap">請點選地圖</h2>
+                <svg width="1500" height="350" id="rmapSVG">
+                    <filter id="grayscale">
+                        <feColorMatrix type="saturate" values="0"/>
+                    </filter>
+                    <image href="./mapImg/map_lumiaIsland.png" width="40%"  filter="url(#grayscale)"/>
+                    <image id="rl1" href="./mapImg/l1.png" onclick="popUpModal('mapSelect',this.id)" x="2.35%" y="5.1%" width="8.7%"/>
+                    <image id="rl2" href="./mapImg/l2.png" onclick="popUpModal('mapSelect',this.id)" x="10%" y="0%" width="7%"/>
+                    <image id="rl3" href="./mapImg/l3.png" onclick="popUpModal('mapSelect',this.id)" x="16.5%" y="0%" width="7%"/>
+                    <image id="rl4" href="./mapImg/l4.png" onclick="popUpModal('mapSelect',this.id)" x="23.2%" y="11%" width="10%"/>
+                    <image id="rl5" href="./mapImg/l5.png" onclick="popUpModal('mapSelect',this.id)" x="32.5%" y="28.5%" width="7%"/>
+                    <image id="rl6" href="./mapImg/l6.png" onclick="popUpModal('mapSelect',this.id)" x="2%" y="27.5%" width="7%"/>
+                    <image id="rl7" href="./mapImg/l7.png" onclick="popUpModal('mapSelect',this.id)" x="7%" y="17%" width="6%"/>
+                    <image id="rl8" href="./mapImg/l8.png" onclick="popUpModal('mapSelect',this.id)" x="12.75%" y="17%" width="5.5%"/>
+                    <image id="rl9" href="./mapImg/l9.png" onclick="popUpModal('mapSelect',this.id)" x="18%" y="21%" width="8%"/>
+                    <image id="rl10" href="./mapImg/l10.png" onclick="popUpModal('mapSelect',this.id)" x="28%" y="40%" width="8.5%"/>
+                    <image id="rl11" href="./mapImg/l11.png" onclick="popUpModal('mapSelect',this.id)" x="7.5%" y="35%" width="6.5%"/>
+                    <image id="rl12" href="./mapImg/l12.png" onclick="popUpModal('mapSelect',this.id)" x="13.25%" y="44.5%" width="5.75%"/>
+                    <image id="rl13" href="./mapImg/l13.png" onclick="popUpModal('mapSelect',this.id)" x="16.75%" y="55%" width="7.5%"/>
+                    <image id="rl14" href="./mapImg/l14.png" onclick="popUpModal('mapSelect',this.id)" x="22.25%" y="42%" width="7%"/>
+                    <image id="rl15" href="./mapImg/l15.png" onclick="popUpModal('mapSelect',this.id)" x="27.75%" y="53%" width="6.25%"/>
+                    <image id="rl16" href="./mapImg/l16.png" onclick="popUpModal('mapSelect',this.id)" x="33%" y="57%" width="7%"/>
+                    <image id="rl17" href="./mapImg/l17.png" onclick="popUpModal('mapSelect',this.id)" x="0%" y="50%" width="7.5%"/>
+                    <image id="rl18" href="./mapImg/l18.png" onclick="popUpModal('mapSelect',this.id)" x="2.5%" y="55%" width="7%"/>
+                    <image id="rl19" href="./mapImg/l19.png" onclick="popUpModal('mapSelect',this.id)" x="8.15%" y="63%" width="6%"/>
+                    <image id="rl20" href="./mapImg/l20.png" onclick="popUpModal('mapSelect',this.id)" x="14%" y="73.5%" width="9.5%"/>
+                    <image id="rl21" href="./mapImg/l21.png" onclick="popUpModal('mapSelect',this.id)" x="23.7%" y="64%" width="6.15%"/>
+                    <image id="rl22" href="./mapImg/l22.png" onclick="popUpModal('mapSelect',this.id)" x="16.75%" y="35%" width="5.5%"/>
+                </svg>
+            </div>
+            <div id="plannerDiv">
+                <!--<font style="font-size:40px;font-weight: 800;color: black;padding-top: 15px;\
+            text-shadow:\
+            -2px -2px 0 #FFF,\
+            2px -2px 0 #FFF,\
+            -2px 2px 0 #FFF,\
+            2px 2px 0 #FFF;">-->
+                <table id="plannerTable">
+                    <tr><td id="saveTitle" colspan="2" align="center"></td></tr>
+                    <tr>
+                        <td id="tableCharLoc"></td>
+                        <td>                            
+                            <table id="contentTable">
+                                <!--example:<tr><td>地點</td><td>撿取物品</td></tr>-->
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 
     <!-- The Modal -->
-    <div id="myModal" class="modal">
-
+    <div id="popupModal" class="modal">
       <!-- Modal content -->
-      <div class="modal-content">
+      <div class="modal-content" id="popupModalContent"> 
         <span class="close" align="right">&times;</span>
         <p id="explainText">
             <!--<h2>黑色倖存套路規劃器</h2>
@@ -249,8 +269,10 @@
             【4】合成顯示頁單擊合成列可以觀看合成配方與出現地點、數量，雙擊為觀看該物品配方<br>
             【5】材料統計頁會列出目前所有位於裝備規劃列所需的材料與數量<br>
             【6】地圖索引頁點選單一地點，可以看到目前規劃中裝備應於該地點撿取的物品與數量<br>
-            </h4>-->
+            </h4>-->            
         </p>
+        <svg id="modalSVG">
+        </svg>
       </div>
     </div>
 
@@ -259,9 +281,11 @@
     <script src="lib/popper.min.js"></script>
     <script src="lib/bootstrap.min.js"></script>
     <script src="lib/d3.v3.min.js"></script>
+    <script src="lib/html2canvas.min.js"></script>
     <script src="src/recipe.js"></script>
     <script src="src/lumiaIsland.js"></script>
     <script src="src/language.js"></script>
+    <script src="src/planner.js"></script>
     <script src="src/main.js"></script>    
 
     <script type="text/javascript">
@@ -279,11 +303,12 @@
            else if (key == 50) stepSwitch(2);
            else if (key == 51) stepSwitch(3);
            else if (key == 52) stepSwitch(4);
+           else if (key == 53) stepSwitch(5);
         }
     </script>
 
     <script type="text/javascript">
-        var modal = document.getElementById('myModal');
+        var modal = document.getElementById('popupModal');
         var span = document.getElementsByClassName("close")[0];
         // When the user clicks on <span> (x), close the modal
         span.onclick = function() {

@@ -18,6 +18,7 @@ var nowType;
 var maxPage = 0;
 var maxSelectedPage = 0;
 var nowLanguage = "tw";
+var nowSelectingMap;
 var wishList = [];
 var itemNumber = 
 {
@@ -48,9 +49,64 @@ function init()
 }
 init();
 
-function popUpModal()
+function popUpModal(modalName,mapSelected)
 {
-	var modal = document.getElementById('myModal');
+	var modal = document.getElementById("popupModal");
+	d3.select("#popupModalContent").selectAll("image").remove();
+	d3.select("#popupModalContent").selectAll("canvas").remove();
+	d3.select("#modalSVG").attr("style","display:none");
+	d3.select("#explainText").attr("style","display:none");
+	if(modalName=="informModal")
+	{
+		d3.select("#explainText").attr("style",null);
+	}
+	else if(modalName=="charModal")
+	{
+		d3.select("#modalSVG").attr("style",null);
+		d3.select("#modalSVG").attr("height",Math.ceil(37/10)*130);
+		d3.select("#modalSVG").attr("width",10*120+100);
+		for(var i=0;i<37;i++)
+		{
+			//ct=200*233
+			d3.select("#modalSVG").append("image").attr(
+			{
+				"x":i%10*120+20,
+				"y":Math.floor(i/10)*126.5,
+				"width":100,
+				"href":"./charImg/ct"+(i*1+1)+".jpg",
+				"id":"charT"+(i*1+1),
+				"onclick":"selectChar(this.id)",
+			})
+		}		
+	}
+	else if(modalName=="mapSelect")
+	{
+		d3.select("#modalSVG").attr("style",null);
+		var picWidth = 285*0.5;
+		var picHeight = 168*0.5;
+		var oneRowHowMany = 9;
+		mapSelected = mapSelected.replace("rl","");
+		nowSelectingMap = mapSelected;
+		d3.select("#modalSVG").attr("height",Math.ceil(lumiaIsland[mapSelected].length/oneRowHowMany)*picHeight+50);
+		d3.select("#modalSVG").attr("width",oneRowHowMany*picWidth+200);
+
+		for(var i=0;i<lumiaIsland[mapSelected].length;i++)
+		{
+			d3.select("#modalSVG").append("image").attr(
+			{
+				"x":(i%oneRowHowMany)*(picWidth+20)+20,
+				"y":Math.floor(i/oneRowHowMany)*(picHeight+20),
+				"width":picWidth,
+				"href":"./thingsImg/"+lumiaIsland[mapSelected][i]+".jpg",
+				"id":"popUpItem"+lumiaIsland[mapSelected][i],
+				"onclick":"selectPopUpItem(this.id)",
+			});
+		}
+	}
+	else if(modalName=="savePicModal")
+	{
+		//do nothing
+	}
 	modal.style.display = "block";
 }
 
@@ -121,7 +177,7 @@ function showOnField(typeText,page,field)
 				"href":"./thingsImg/"+wishList[i]+".jpg",
 				"id":"selecteditem"+wishList[i],
 				"onclick":"seeTheRecipe(this.id)",
-				"ondblclick":"delectSelected(this.id)",
+				"ondblclick":"deleteSelected(this.id)",
 			});
 			showNumbers++;
 		}		
@@ -158,7 +214,6 @@ function seeTheRecipe(item)
 		"id":"recipe"+itemId,
 		"onclick":"checkOnMap(this.id)",		
 	});
-	console.log(recipe[itemId]);
 	if(recipe[itemId].length!=0)
 	{
 		d3.select("#itemRecipeSVG").append("text").text("=").attr(
@@ -276,7 +331,7 @@ function checkOnMap(item)
 	}
 }
 
-function delectSelected(item)
+function deleteSelected(item)
 {
 	d3.select("#"+item).remove();
 	var index = wishList.indexOf(item.replace("selecteditem",""));
@@ -284,7 +339,7 @@ function delectSelected(item)
 	  wishList.splice(index, 1);
 	maxSelectedPage = Math.floor((wishList.length-1)/5);
 	if(selectedPage>maxSelectedPage) selectedPage = maxSelectedPage;
-	showOnField(-1,selectedPage,"selectedItemSVG");
+	if(wishList.length!=0) showOnField(-1,selectedPage,"selectedItemSVG");
 }
 
 function pageSwitch(value)
@@ -328,7 +383,7 @@ function selectedPageSwitch(value)
 }
 function stepSwitch(step)
 {
-	for(var i=1;i<=4;i++)
+	for(var i=1;i<=5;i++)
 	{
 		d3.select("#nav"+i).attr("style",null);
 	}	
@@ -337,7 +392,8 @@ function stepSwitch(step)
 	var stepView=[["selectedItemDiv","itemListDiv"],
 				  ["selectedItemDiv","itemRecipeDiv","mapDiv"],
 				  ["selectedItemDiv","totalNeedDiv","mapDiv"],
-				  ["selectedItemDiv","mapDiv","reverseListDiv"]];
+				  ["selectedItemDiv","mapDiv","reverseListDiv"],
+				  ["mapRequestDiv","plannerDiv"]];
 	if(step==2) calculation();
 	if(step==3)
 	{
@@ -361,16 +417,14 @@ function calculation()//計算結果
 	var images = d3.select("#selectedItemSVG").selectAll("image")[0];
 	var totalItems = [];
 	var itemNumberList = [];
-	for(var i in images)
+	for(var i in wishList)
 	{
-		if(images[i].id.indexOf("selecteditem")!=-1)
-		{
-			totalItems.push(images[i].id.replace("selecteditem",""));
-		}
+		totalItems.push(wishList[i]);
 	}
 	var alreadyIn = false;
 	for(var i=0; i<totalItems.length;i++)
 	{
+		if(typeof recipe[totalItems[i]] == "undefined") console.log(totalItems[i],recipe[totalItems[i]]);
 		if(recipe[totalItems[i]].length==0)
 		{
 			alreadyIn = false;
@@ -397,13 +451,12 @@ function calculation()//計算結果
 	var picSizeX = 285*0.5;
 	var picSizeY = 170*0.5;
 	var locX;
-	var locY;
+	var locY = startY;
 	var lineRec = 0;
 	
 	for(var i in itemNumberList)
 	{
 		locX = startX + (i%8)*(picSizeX+spacing);
-		locY = startY;
 		if(Math.floor(i/8)>lineRec)
 		{
 			lineRec++;
