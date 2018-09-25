@@ -20,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/csshake.min.css">
+    <link rel="icon" href="./img/icon.png">
     <style type="text/css">
     h1 {
         font-family: 'cwTeXFangSong';
@@ -211,8 +212,14 @@
             <div id="mapRequestDiv">
                 <button id="charBtn" style="border-radius: 5px; font-size: 24px;" onclick="showCharModal()">選擇角色</button>
                 <button id="saveBtn" style="border-radius: 5px; font-size: 24px;" onclick="saveRoute()">保存圖片</button>
-                <input id="goalLineIn" type="checkbox" checked="true" onchange="goalTRCheck(this.checked)">列入目標</input>
+                <!--<input id="goalLineIn" type="checkbox" checked="true" onchange="goalTRCheck(this.checked)">列入目標</input>-->
                 <input id="useSingleColorCheck" type="checkbox">使用單色背景</input>
+                <!--<button id="equipBtn" style="border-radius: 5px; font-size: 24px;" onclick="putOnEquipments()">穿上裝備</button>-->
+                <!--<select id="routePicSize">路徑圖片大小
+                  <option value="0">小</option>
+                  <option value="1" selected="selected">中</option>
+                  <option value="2">大</option>
+                </select>-->
                 <input id="useSingleColorBG" type="color"></input>
                 <h2 class="unselectable" id="textMap">請點選地圖</h2>
                 <svg width="1500" height="350" id="rmapSVG">
@@ -246,12 +253,43 @@
             </div>
             <div id="plannerDiv">
                 <table id="plannerTable" >
-                    <tr><td id="saveTitle" colspan="2" align="center"></td></tr>
+                    <tr><td id="saveTitle" colspan="20" align="center" style="font-size: 60px;stroke: white;visibility: hidden;"></td></tr>
                     <tr>
-                        <td id="tableCharLoc"></td>
+                        <td id="equipmentCol1">
+                            <table style="margin-left: 20px;" >
+                                <tr><td>
+                                    <img id="equipWeaponImg" style="margin-bottom:40px;" src="./img/equipWeaponB.png" width="120" />
+                                    <div id="equipWeaponDiv" class="circular--landscape" style="margin-bottom:30px; display: none;"><img  src="./thingsImg/335.jpg" width="120"/></div>
+                                </td></tr>
+                                <tr><td>
+                                    <img id="equipArmImg" style="margin-bottom:40px;" src="./img/equipArmB.png" width="120"/>
+                                    <div id="equipArmDiv" class="circular--landscape" style="margin-bottom:30px; display: none;"></div>
+                                </td></tr>
+                                <tr><td>
+                                    <img id="equipAccessoryImg" style="margin-bottom:40px;" src="./img/equipAccessoryB.png" width="120"/>
+                                    <div id="equipAccessoryDiv" class="circular--landscape" style="margin-bottom:30px; display: none;"></div>
+                                </td></tr>
+                            </table>
+                        </td>
+                        <td id="tableCharLoc"><img src="./charImg/dare.png"/></td>
+                        <td id="equipmentCol2">
+                            <table>
+                                <tr><td>
+                                    <img id="equipHeadImg" style="margin-bottom:40px;" src="./img/equipHeadB.png" width="120"/>
+                                    <div id="equipHeadDiv" class="circular--landscape" style="margin-bottom:30px; display: none;"></div>
+                                </td></tr>
+                                <tr><td>
+                                    <img id="equipClothesImg" style="margin-bottom:40px;" src="./img/equipClothesB.png" width="120"/>
+                                    <div id="equipClothesDiv" class="circular--landscape" style="margin-bottom:30px; display: none;"></div>
+                                </td></tr>
+                                <tr><td>
+                                    <img id="equipLegImg" style="margin-bottom:40px;" src="./img/equiplegB.png" width="120"/>
+                                    <div id="equipLegDiv" class="circular--landscape" style="margin-bottom:30px; display: none;"></div>
+                                </td></tr>
+                            </table>
                         <td>                            
                             <table id="contentTable">
-                                <tr id="goalTR" style="border: 5px solid #880000;"></tr>
+                                <!--<tr id="goalTR" style="border: 5px solid #880000;"></tr>-->
                                 <!--example:<tr><td>地點</td><td>撿取物品</td></tr>-->
                             </table>
                         </td>

@@ -12,20 +12,21 @@ function saveRoute()
 	else
 	{
 		d3.select("#plannerDiv").attr({
-			"style":"min-width:1400px;display: inline-block;background-image:url('./img/startBG.png');background-size:100%;",//background-repeat:no-repeat;",
+			"style":"min-width:1400px;display: inline-block;background-image:url('./img/routeBG.png');background-size:100%;",//background-repeat:no-repeat;",
 		});
 	}
+	d3.select("#saveTitle").text(routeName);
 	html2canvas(document.querySelector("#plannerDiv")).then(canvas => {
     var canvas = document.getElementById("popupModalContent").appendChild(canvas);
     var ctx = canvas.getContext("2d");
-    ctx.font = "40px Arial";    
+    ctx.font = "60px Arial";    
     ctx.textAlign = "center";	    
     ctx.lineWidth = 5;//half will be the stroke width
-	ctx.strokeText(routeName,canvas.width/2, canvas.height/9);
+	ctx.strokeText(routeName,canvas.width/2, canvas.height*0.1);
 	ctx.fillStyle = "white";
-	ctx.fillText(routeName, canvas.width/2, canvas.height/9);
+	ctx.fillText(routeName, canvas.width/2, canvas.height*0.1);
     d3.select("#plannerDiv").attr("style",null);
-	d3.select("#saveTitle").text("");});  
+	/*d3.select("#saveTitle").text("");*/});  
 	popUpModal("savePicModal");
 }
 
@@ -33,6 +34,36 @@ function goalTRCheck(value)
 {
 	if(value) goalTRFill();
 	else d3.select("#goalTR").selectAll("td").remove();
+}
+
+function putOnEquipments()
+{	
+	d3.select("#equipWeaponImg").attr("style","margin-bottom:40px;");
+	d3.select("#equipArmImg").attr("style","margin-bottom:40px;");
+	d3.select("#equipAccessoryImg").attr("style","margin-bottom:40px;");
+	d3.select("#equipHeadImg").attr("style","margin-bottom:40px;");
+	d3.select("#equipClothesImg").attr("style","margin-bottom:40px;");
+	d3.select("#equipLegImg").attr("style","margin-bottom:40px;");
+
+	d3.select("#equipWeaponDiv").attr("style","margin-bottom:30px;display:none;").selectAll("img").remove();
+	d3.select("#equipArmDiv").attr("style","margin-bottom:30px;display:none;").selectAll("img").remove();
+	d3.select("#equipAccessoryDiv").attr("style","margin-bottom:30px;display:none;").selectAll("img").remove();
+	d3.select("#equipHeadDiv").attr("style","margin-bottom:30px;display:none;").selectAll("img").remove();
+	d3.select("#equipClothesDiv").attr("style","margin-bottom:30px;display:none;").selectAll("img").remove();
+	d3.select("#equipLegDiv").attr("style","margin-bottom:30px;display:none;").selectAll("img").remove();
+
+	for(var i=0; i<wishList.length;i++)
+	{
+		var typeOfItem = whichType(wishList[i]);
+		if(typeOfItem == "Normal" || typeOfItem =="Food" ) continue;
+		d3.select("#equip"+typeOfItem+"Div").selectAll("img").remove();
+		d3.select("#equip"+typeOfItem+"Img").attr("style","margin-bottom:40px;display:none;");
+		console.log("Meme",wishList[i],typeOfItem);
+		d3.select("#equip"+typeOfItem+"Div").attr("style","margin-bottom:30px;").append("img").attr({
+			"src":"./thingsImg/"+wishList[i]+".jpg",
+			"width":120,
+		});
+	}
 }
 
 function goalTRFill()
@@ -76,13 +107,14 @@ function selectChar(charNo)
 var selectedMap=[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
 function selectPopUpItem(itemId,doubleClick)
 {
-	//"popUpItem"+lumiaIsland[mapSelected][i],
+	//var sizeOfTD = [100,125,150];
 	itemId = itemId.replace("popUpItem","");
 	if(!selectedMap[nowSelectingMap])
 	{
 		selectedMap[nowSelectingMap]=true;
 		d3.select("#contentTable").append("tr").attr("id","mapInTable"+nowSelectingMap)
-								  .append("td").attr("style","width:150px;")
+								  .append("td").attr("style","width:125px;")
+								  //.append("td").attr("style","width:"+sizeOfTD[$('#routePicSize').val()]+"px;")
 								  .append("img").attr(
 								  {
 								  		"style":"max-width:100%; max-height:100%;",
@@ -96,7 +128,7 @@ function selectPopUpItem(itemId,doubleClick)
 												"id":"single"+itemId,
 												"mapNo":nowSelectingMap,
 												"ondblclick":"removeSingleItem(this.id,$(this).attr('mapNo'))",
-												"style":"width:150px;",
+												"style":"width:125px;",
 											})
 											.append("img").attr(
 											{

@@ -287,3 +287,22 @@ a.article, a.article:hover {
     text-decoration: none;
     cursor: pointer;
 }
+
+/*circular Picture*/
+.circular--landscape{
+    display:inline-block;
+    position:relative;
+    width:110px;
+    height:110px;
+    overflow:hidden;
+    border-radius:50%;
+    border-width:5px;
+    border-color:#000;/*7b6f6d*/
+    border-style:solid;
+}
+
+.circular--landscape img{
+    width:auto;
+    height:100%;
+    margin-left:-35%;
+}

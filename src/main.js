@@ -12,6 +12,21 @@
 (https://goo.gl/LCrcYf)
 */
 
+function whichType(itemNo)
+{
+	if(itemNo<=55) return "Normal";
+	if(itemNo<=157) return "Food";
+	if(itemNo<=203) return "Clothes";
+	if(itemNo<=231) return "Head";
+	if(itemNo<=255) return "Arm";
+	if(itemNo<=274) return "Leg";
+	if(itemNo<=303) return "Accessory";
+	if(itemNo<=665) return "Weapon";
+	//例外
+	if(itemNo<=670) return "Normal";
+	if(itemNo==671) return "Food";
+}
+
 var itemPage = 0;
 var selectedPage = 0;
 var nowType;
@@ -410,7 +425,7 @@ function stepSwitch(step)
 	{
 		reverseList(calculation());
 	} 
-	if(step==4) goalTRFill();
+	if(step==4) putOnEquipments();
 	for(var i in stepView)
 	{
 		for(var j in stepView[i])
