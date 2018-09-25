@@ -32,7 +32,7 @@ var selectedPage = 0;
 var nowType;
 var maxPage = 0;
 var maxSelectedPage = 0;
-var nowLanguage = "tw";
+var nowLanguage = "ct";
 var nowSelectingMap;
 var wishList = [];
 var itemNumber = 
@@ -70,7 +70,7 @@ function urlLoading()
 	urlData = urlData.split("?language=");
 	urlData = urlData[1];
 
-	if( urlData == "tw") languageSwitch("tw");
+	if( urlData == "ct") languageSwitch("ct");
 	else if( urlData == "jp") languageSwitch("jp");
 	else if( urlData == "us")languageSwitch("us");
 }
@@ -326,7 +326,7 @@ function checkOnMap(item)
 		{
 			var textRandomAppear =
 			{
-				"tw":"出現在隨機區域",
+				"ct":"出現在隨機區域",
 				"jp":"ランダム地域で出ます",
 				"us":"Appears at Random Area",
 			}
@@ -342,7 +342,7 @@ function checkOnMap(item)
 		{
 			var textNeedToMake =
 			{
-				"tw":"可以被合成",
+				"ct":"可以被合成",
 				"jp":"製造で作れます",
 				"us":"Can be crafted",
 			}

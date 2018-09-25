@@ -36,6 +36,7 @@
             <div class="sidebar-header">
                 <h3 id="textGameName">黑色倖存</h3>
                 <h3>Black Survival</h3>
+                <h6>Game Version 5.0.00 </h6>
             </div>
 
             <ul class="list-unstyled components">
@@ -82,10 +83,19 @@
                 
             </ul>
 
-            <div align="center">
-                <img src="./img/twIcon.png" width="25%" onclick="languageSwitch('tw')"/>
+            <!--<div align="center">
+                <img src="./img/ctIcon.png" width="25%" onclick="languageSwitch('ct')"/>
                 <img src="./img/jpIcon.png" width="25%" onclick="languageSwitch('jp')"/>
                 <img src="./img/usIcon.png" width="25%" onclick="languageSwitch('us')"/>
+            </div>-->
+
+            <div align="center">
+                <h2>Language</h2>
+                <select id="routePicSize" onchange="languageSwitch(this.value)">Language
+                  <option value="ct" selected="selected">Traditional Chinese</option>
+                  <option value="jp" >Nihongo</option>
+                  <option value="us">English</option>
+                </select>                
             </div>
 
             <ul class="list-unstyled CTAs">
@@ -213,7 +223,7 @@
                 <button id="charBtn" style="border-radius: 5px; font-size: 24px;" onclick="showCharModal()">選擇角色</button>
                 <button id="saveBtn" style="border-radius: 5px; font-size: 24px;" onclick="saveRoute()">保存圖片</button>
                 <!--<input id="goalLineIn" type="checkbox" checked="true" onchange="goalTRCheck(this.checked)">列入目標</input>-->
-                <input id="useSingleColorCheck" type="checkbox">使用單色背景</input>
+                <input id="useSingleColorCheck" type="checkbox">使用此色填充背景</input>
                 <!--<button id="equipBtn" style="border-radius: 5px; font-size: 24px;" onclick="putOnEquipments()">穿上裝備</button>-->
                 <!--<select id="routePicSize">路徑圖片大小
                   <option value="0">小</option>

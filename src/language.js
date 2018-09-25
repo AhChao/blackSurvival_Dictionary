@@ -38,8 +38,10 @@ var textOrder=
 	"textEachLoc",
 	"charBtn",
 	"saveBtn",
+	"useSingleColorCheck",
+	"nav5",
 ];
-var twStr=
+var ctStr=
 [
 	"黑色倖存",
 	"選擇類別",
@@ -79,6 +81,8 @@ var twStr=
 	"各地點應撿材料",
 	"選擇角色",
 	"保存圖片",
+	"使用此色填充背景",
+	"套路規劃",
 ];
 var jpStr=
 [
@@ -120,6 +124,8 @@ var jpStr=
 	"ドロップ",
 	"実験体を選ぶ",
 	"画像を保存する",
+	"背景色を使用する",
+	"プランナー",
 ];
 var usStr=
 [
@@ -161,6 +167,8 @@ var usStr=
 	"What you need in...",
 	"Chose the character",
 	"Save the picture",
+	"Use thi Color for Background",
+	"Planner",
 ];
 function languageSwitch(language)
 {
@@ -168,7 +176,7 @@ function languageSwitch(language)
 	for(var i=0;i<textOrder.length;i++)
 	{
 		if(language=="jp") d3.select("#"+textOrder[i]).text(jpStr[i]);
-		else if(language=="tw") d3.select("#"+textOrder[i]).text(twStr[i]);
+		else if(language=="ct") d3.select("#"+textOrder[i]).text(ctStr[i]);
 		else if(language=="us") d3.select("#"+textOrder[i]).text(usStr[i]);
 	}
 	document.getElementById("explainText").innerHTML=explainText[language];
@@ -176,7 +184,7 @@ function languageSwitch(language)
 
 var explainText=
 {
-	"tw":"<h2>黑色倖存套路規劃器</h2><h4>\
+	"ct":"<h2>黑色倖存套路規劃器</h2><h4>\
             【1】功能位於右上角切換，依序為裝備規劃、合成顯示、材料統計、地圖索引<br>\
             【2】在左邊側頁選擇裝備類別，雙擊欲加入規劃的裝備<br>\
             【3】裝備規劃列單擊為切到合成顯示頁，雙擊為移除<br>\
@@ -186,11 +194,8 @@ var explainText=
           </h4>",
 	"jp":"<h2>ブラサバ ルートプランナー</h2><h4>\
             【1】画面右上の機能を選択できます<br>\
-            【2】在左邊側頁選擇裝備類別，雙擊欲加入規劃的裝備<br>\
-            【3】裝備規劃列單擊為切到合成顯示頁，雙擊為移除<br>\
-            【4】合成顯示頁單擊合成列可以觀看合成配方與出現地點、數量，雙擊為觀看該物品配方<br>\
-            【5】材料統計頁會列出目前所有位於裝備規劃列所需的材料與數量<br>\
-            【6】地圖索引頁點選單一地點，可以看到目前規劃中裝備應於該地點撿取的物品與數量<br>\
+            【2】クリックやダブルクリックでほとんどの操作を行うことができます<br>\
+            【3】私の日本語はうまくないです。詳細な説明を英語版お読みください<br>\
           </h4>",
 	"us":"<h2>Black Survival Route Planner</h2><h4>\
             【1】You can select function on right upper corner.<br>\
