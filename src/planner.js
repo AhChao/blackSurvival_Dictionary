@@ -58,7 +58,7 @@ function putOnEquipments()
 		if(typeOfItem == "Normal" || typeOfItem =="Food" ) continue;
 		d3.select("#equip"+typeOfItem+"Div").selectAll("img").remove();
 		d3.select("#equip"+typeOfItem+"Img").attr("style","margin-bottom:40px;display:none;");
-		console.log("Meme",wishList[i],typeOfItem);
+		//console.log("Meme",wishList[i],typeOfItem);
 		d3.select("#equip"+typeOfItem+"Div").attr("style","margin-bottom:30px;").append("img").attr({
 			"src":"./thingsImg/"+wishList[i]+".jpg",
 			"width":120,

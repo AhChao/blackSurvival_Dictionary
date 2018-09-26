@@ -172,6 +172,7 @@ var usStr=
 ];
 function languageSwitch(language)
 {
+	$("#languageSwitchSelect").val(language);
 	nowLanguage = language;
 	for(var i=0;i<textOrder.length;i++)
 	{
