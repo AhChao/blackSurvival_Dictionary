@@ -57,8 +57,60 @@ var itemNumber =
 	"trap":[640,665],
 };
 
+var itemTypeCate = 
+{
+	"health":[],
+	"stamina":[],
+	"enhance":[],
+	"special":[],
+	"ingredients":[],
+	"head":[],
+	"clothes":[],
+	"arm":[],
+	"leg":[],
+	"accessory":[],
+	"blade":[],
+	"stab":[],
+	"blunt":[],
+	"thrown":[],
+	"gun":[],
+	"bow":[],
+	"hand":[],
+	"trap":[],
+};
+function setItemTypeCate()
+{
+	for(var i in itemNumber)
+	{
+		for(var j=itemNumber[i][0]; j<=itemNumber[i][1];j++)
+		{
+			itemTypeCate[i].push(j);
+		}
+	}
+	
+	for(var i =666 ;i<=670;i++)
+	{
+		itemTypeCate["ingredients"].push(i);
+	}
+	
+	//新增
+	itemTypeCate["stamina"].push(671);
+	itemTypeCate["accessory"].push(460);
+	itemTypeCate["accessory"].push(474);
+
+	//類別中移除
+	var index;
+	index = itemTypeCate["blunt"].indexOf(460);
+	itemTypeCate["blunt"].splice(index, 1);
+	index = itemTypeCate["blunt"].indexOf(474);
+	itemTypeCate["blunt"].splice(index, 1);
+	index = itemTypeCate["gun"].indexOf(548);
+	itemTypeCate["gun"].splice(index, 1);
+}
+
 function init()
 {
+	setItemTypeCate();
 	stepSwitch(1);
 	urlLoading();
 }
@@ -141,7 +193,7 @@ function selectType(typeText)
 	stepSwitch(1);
 	d3.select("#typeText").text(d3.select("#"+typeText+"Btn").text());
 	itemPage = 0;
-	maxPage = Math.ceil((itemNumber[typeText][1]-itemNumber[typeText][0]+1)/10)-1;
+	maxPage = Math.ceil(itemTypeCate[typeText].length/10)-1;
 	showOnField(typeText,itemPage,"showItemFieldSVG");
 	nowType = typeText;
 }
@@ -164,10 +216,10 @@ function showOnField(typeText,page,field)
 		startX = 80;
 		startY = 40;
 		maxShow=10;
-		startIndex = (itemNumber[typeText][0]+page*10);
+		startIndex = page*10;
 		d3.select("#pageText").text((itemPage+1)+"/"+(maxPage+1));
 		if(maxPage==0) d3.select("#pageText").text("");
-		for(var i= (itemNumber[typeText][0]+page*10);i<=itemNumber[typeText][1]&&showNumbers<maxShow;i++)
+		for(var i= page*10;i<itemTypeCate[typeText].length&&showNumbers<maxShow;i++)
 		{		
 			locX = startX + ((i-startIndex)%5)*(picSizeX+spacing);
 			locY = startY + Math.floor((i-startIndex)/5)*(picSizeY+spacing);
@@ -177,8 +229,8 @@ function showOnField(typeText,page,field)
 				"y":locY,
 				"width":picSizeX,
 				"height":picSizeY,
-				"href":"./thingsImg/"+i+".jpg",
-				"id":"item"+i,
+				"href":"./thingsImg/"+itemTypeCate[typeText][i]+".jpg",
+				"id":"item"+itemTypeCate[typeText][i],
 				"ondblclick":"selectItem(this.id)",
 			});
 			showNumbers++;
