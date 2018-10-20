@@ -503,7 +503,7 @@ function calculation()//計算結果
 	var alreadyIn = false;
 	for(var i=0; i<totalItems.length;i++)
 	{
-		if(typeof recipe[totalItems[i]] == "undefined") console.log(i,totalItems[i],recipe[totalItems[i]]);
+		if(typeof recipe[totalItems[i]] == "undefined") console.log(i,wishList,totalItems,totalItems[i],recipe[totalItems[i]]);
 		if(recipe[totalItems[i]].length==0)
 		{
 			alreadyIn = false;
@@ -519,8 +519,8 @@ function calculation()//計算結果
 		}
 		else
 		{
-			totalItems.push(recipe[totalItems[i]][0]);
-			totalItems.push(recipe[totalItems[i]][1]);
+			if(typeof recipe[totalItems[i]][0] != "undefined") totalItems.push(recipe[totalItems[i]][0]);
+			if(typeof recipe[totalItems[i]][1] != "undefined") totalItems.push(recipe[totalItems[i]][1]);
 		}
 	}
 
