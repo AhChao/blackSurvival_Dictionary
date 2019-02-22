@@ -237,7 +237,8 @@ function showOnField(typeText,page,field)
 				"height":picSizeY,
 				"href":"./thingsImg/"+itemTypeCate[typeText][i]+".jpg",
 				"id":"item"+itemTypeCate[typeText][i],
-				"ondblclick":"selectItem(this.id)",
+				"onclick":"selectItem(this.id)",
+				//Try for mobile "ondblclick":"selectItem(this.id)",
 			});
 			showNumbers++;
 		}
