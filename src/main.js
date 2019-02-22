@@ -100,6 +100,12 @@ function setItemTypeCate()
 
 	//類別中移除
 	var index;
+	index = itemTypeCate["clothes"].indexOf(192);
+	itemTypeCate["clothes"].splice(index, 1);//5.4
+	index = itemTypeCate["clothes"].indexOf(230);
+	itemTypeCate["clothes"].splice(index, 1);//5.5
+	index = itemTypeCate["clothes"].indexOf(218);
+	itemTypeCate["clothes"].splice(index, 1);//5.5
 	index = itemTypeCate["blunt"].indexOf(460);
 	itemTypeCate["blunt"].splice(index, 1);
 	index = itemTypeCate["blunt"].indexOf(474);
@@ -141,9 +147,9 @@ function popUpModal(modalName,mapSelected)
 	else if(modalName=="charModal")
 	{
 		d3.select("#modalSVG").attr("style",null);
-		d3.select("#modalSVG").attr("height",Math.ceil(37/10)*130);
+		d3.select("#modalSVG").attr("height",Math.ceil(38/10)*130);
 		d3.select("#modalSVG").attr("width",10*120+100);
-		for(var i=0;i<37;i++)
+		for(var i=0;i<38;i++)//i = character amount 角色數量
 		{
 			//ct=200*233
 			d3.select("#modalSVG").append("image").attr(
