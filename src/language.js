@@ -163,10 +163,10 @@ var usStr=
 	"Recipe",
 	"Total required",
 	"Appears at",
-	"Chose the Area",
+	"Choose Area",
 	"What you need in...",
-	"Chose the character",
-	"Save the picture",
+	"Choose Character",
+	"Save Picture",
 	"Use thi Color for Background",
 	"Planner",
 ];
