@@ -1,0 +1,3 @@
+0223
+SVG 2.0才有支援Autosize
+Firefox目前SVG支援版本不夠，所以跑不起來

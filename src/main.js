@@ -500,6 +500,8 @@ function stepSwitch(step)
 
 function calculation()//計算結果
 {
+	d3.select("#totalNeedSVG").selectAll("image").remove();
+	d3.select("#totalNeedSVG").selectAll("text").remove();
 	var images = d3.select("#selectedItemSVG").selectAll("image")[0];
 	var totalItems = [];
 	var itemNumberList = [];
@@ -508,8 +510,12 @@ function calculation()//計算結果
 		totalItems.push(wishList[i]);
 	}
 	var alreadyIn = false;
+	var banminus = 0;//鐵板修正
+	var gonminus = 0;//鋼鐵修正
 	for(var i=0; i<totalItems.length;i++)
 	{
+		if(totalItems[i]==17) banminus++; 
+		if(totalItems[i]==20) gonminus++;
 		if(typeof recipe[totalItems[i]] == "undefined") console.log(i,wishList,totalItems,totalItems[i],recipe[totalItems[i]]);
 		if(recipe[totalItems[i]].length==0)
 		{
@@ -528,6 +534,20 @@ function calculation()//計算結果
 		{
 			if(typeof recipe[totalItems[i]][0] != "undefined") totalItems.push(recipe[totalItems[i]][0]);
 			if(typeof recipe[totalItems[i]][1] != "undefined") totalItems.push(recipe[totalItems[i]][1]);
+		}
+	}
+	console.log(banminus,gonminus,itemNumberList);
+	//兩個鋼鐵或鐵板都只需要一份材料
+	banminus = parseInt(banminus/2);
+	gonminus = parseInt(gonminus/2);
+	if(banminus>0||gonminus>0)
+	{
+		for(var i in itemNumberList)
+		{
+			if(banminus>0&& itemNumberList[i][0]==28) itemNumberList[i][1]-=banminus;
+			if(banminus>0&& itemNumberList[i][0]==455) itemNumberList[i][1]-=banminus;
+			if(gonminus>0&& itemNumberList[i][0]==28) itemNumberList[i][1]-=gonminus;
+			if(gonminus>0&& itemNumberList[i][0]==32) itemNumberList[i][1]-=gonminus;
 		}
 	}
 
