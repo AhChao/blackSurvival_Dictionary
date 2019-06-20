@@ -25,6 +25,9 @@ function whichType(itemNo)
 	//例外
 	if(itemNo<=670) return "Normal";
 	if(itemNo==671) return "Food";
+	if(itemNo==672) return "Arm";
+	if(itemNo==673) return "Leg";
+	if(itemNo==674) return "Leg";
 }
 
 var itemPage = 0;
@@ -95,6 +98,9 @@ function setItemTypeCate()
 	
 	//新增
 	itemTypeCate["stamina"].push(671);
+	itemTypeCate["arm"].push(672);
+	itemTypeCate["leg"].push(673);
+	itemTypeCate["leg"].push(674);
 	itemTypeCate["accessory"].push(460);
 	itemTypeCate["accessory"].push(474);
 
@@ -149,7 +155,7 @@ function popUpModal(modalName,mapSelected)
 		d3.select("#modalSVG").attr("style",null);
 		d3.select("#modalSVG").attr("height",Math.ceil(38/10)*130);
 		d3.select("#modalSVG").attr("width",10*120+100);
-		for(var i=0;i<38;i++)//i = character amount 角色數量
+		for(var i=0;i<40;i++)//i = character amount 角色數量
 		{
 			//ct=200*233
 			d3.select("#modalSVG").append("image").attr(
