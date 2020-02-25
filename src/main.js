@@ -28,6 +28,11 @@ function whichType(itemNo)
 	if(itemNo==672) return "Arm";
 	if(itemNo==673) return "Leg";
 	if(itemNo==674) return "Leg";
+	if(itemNo==675) return "Head";
+	if(itemNo==676) return "Head";
+	if(itemNo==677) return "Arm";
+	if(itemNo==678) return "Accessory";
+	if(itemNo==679) return "Accessory";
 }
 
 var itemPage = 0;
@@ -103,6 +108,11 @@ function setItemTypeCate()
 	itemTypeCate["leg"].push(674);
 	itemTypeCate["accessory"].push(460);
 	itemTypeCate["accessory"].push(474);
+	itemTypeCate["accessory"].push(678);
+	itemTypeCate["accessory"].push(679);
+	itemTypeCate["arm"].push(677);
+	itemTypeCate["head"].push(676);
+	itemTypeCate["head"].push(675);
 
 	//類別中移除
 	var index;
@@ -152,10 +162,11 @@ function popUpModal(modalName,mapSelected)
 	}
 	else if(modalName=="charModal")
 	{
+		var characterAmount = 43;
 		d3.select("#modalSVG").attr("style",null);
-		d3.select("#modalSVG").attr("height",Math.ceil(38/10)*130);
+		d3.select("#modalSVG").attr("height",Math.ceil(characterAmount/10)*130);
 		d3.select("#modalSVG").attr("width",10*120+100);
-		for(var i=0;i<40;i++)//i = character amount 角色數量
+		for(var i=0;i<characterAmount;i++)//i = character amount 角色數量
 		{
 			//ct=200*233
 			d3.select("#modalSVG").append("image").attr(
